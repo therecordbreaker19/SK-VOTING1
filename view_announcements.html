@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Announcements</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 20px;
+        }
+
+        .announcement-card {
+            width: 50%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .announcement-header {
+            background-color: #2196F3;
+            color: white;
+            padding: 20px;
+        }
+
+        .announcement-title {
+            margin: 0;
+        }
+
+        .announcement-content {
+            padding: 20px;
+        }
+
+        .announcement-footer {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .no-notices {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    {% if announcements %}
+    {% for announcement in announcements %}
+    <div class="announcement-card">
+        <header class="announcement-header">
+            <h1 class="announcement-title">{{ announcement[1] }}</h1>
+        </header>
+        <div class="announcement-content">
+            <p>{{ announcement[2] }}</p>
+        </div>
+        <footer class="announcement-footer">
+            <h5>Published on: {{ announcement[3] }}</h5>
+        </footer>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class='no-notices'>No notices</p>
+    {% endif %}
+
+</body>
+
+</html>

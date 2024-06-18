@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ad9c9c;
+        }
+
+        table {
+            width: 100%;
+            background-color: #333;;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            color: black;
+            background-color: white;
+        }
+
+        th {
+            background-color: #333;
+            color: yellow;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            padding-top: 20px;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            padding: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .edit-button {
+            background-color: #008CBA;
+            color: white;
+            padding: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .delete-button:hover {
+            background-color: red;
+        }
+
+        .edit-button:hover {
+            background-color: blue;
+        }
+
+        .save-button {
+            background-color: goldenrod;
+            border-radius: 4px;
+        }
+
+        .save-button:hover {
+            background-color: gold;
+        }
+        
+    </style>
+    <script>
+            function deleteRow(id) {
+                console.log("Delete button clicked for ID:", id);
+        
+                if (confirm("Are you sure you want to delete?")) {
+                    console.log("Confirmed deletion for ID:", id);
+        
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            console.log("Delete request completed. Status:", xhr.status);
+        
+                            if (xhr.status === 200) {
+                                console.log("Delete request successful. Response:", xhr.responseText);
+                                location.reload();
+                            } else {
+                                console.error("Error deleting:", xhr.statusText);
+                            }
+                        }
+                    };
+        
+                    xhr.open("POST", "/admin_delete_announcement", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send("delete_id=" + id);
+                    return false;
+                }
+            }
+        
+    
+            function editRow(id) {
+                var row = document.getElementById("row_" + id);
+                
+                var title = row.querySelector(".title").textContent;
+                var content = row.querySelector(".content").textContent;
+                var publishDate = row.querySelector(".pubish_Date").textContent; 
+                
+                var editedTitle = prompt("Edit Title:", title);
+                var editedContent = prompt("Edit Content:", content);
+                var editedPublishDate = prompt("Edit Publish Date:", publishDate);
+                
+                if (editedTitle !== null && editedContent !== null && editedPublishDate !== null) {
+                    console.log("Editing Row ID:", id);
+                    console.log("Original Title:", title);
+                    console.log("Edited Title:", editedTitle);
+                    console.log("Original Content:", content);
+                    console.log("Edited Content:", editedContent);
+                    console.log("Original Publish Date:", publishDate);
+                    console.log("Edited Publish Date:", editedPublishDate);
+                
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            console.log("Edit request completed. Status:", xhr.status);
+                
+                            if (xhr.status === 200) {
+                                console.log("Edit request successful. Response:", xhr.responseText);
+                                location.reload();
+                            } else {
+                                console.error("Error updating:", xhr.statusText);
+                            }
+                        }
+                    };
+                    xhr.open("POST", "/admin_edit_announcement", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send(
+                        "edit_id=" + id +
+                        "&title=" + encodeURIComponent(editedTitle) +
+                        "&content=" + encodeURIComponent(editedContent) +
+                        "&publish_date=" + encodeURIComponent(editedPublishDate)
+                    );
+                }
+            }            
+            
+    </script>
+    
+</head>
+
+<body>
+    {% if notices %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Publish Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for notice in notices %}
+        <tr id='row_{{ notice[0] }}'>
+            <td>{{ notice[0] }}</td>
+            <td class='title'>{{ notice[1] }}</td>
+            <td class='content'>{{ notice[2] }}</td>
+            <td class='pubish_Date'>{{ notice[3] }}</td>
+            <td>
+                <button class="delete-button" onclick="deleteRow('{{ notice[0] | safe }}')">Delete</button>
+                <button class="edit-button" onclick="editRow('{{ notice[0] | safe }}')">Edit</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No Records Found.</p>
+    {% endif %}
+</body>
+
+</html>

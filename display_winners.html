@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Announcements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ad9c9c;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #333;
+            margin-left: 34%;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        ull {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: white;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .announcement-card {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-left: 20%;
+        }
+
+        .announcement-header {
+            background-color: #2196F3;
+            color: white;
+            padding: 20px;
+            border-bottom: 1px solid #1976D2;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .announcement-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .announcement-content {
+            padding: 20px;
+            text-align: left;
+            color: #ffffff;
+        }
+
+        .announcement-footer {
+            background-color: #1976D2;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .no-notices {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .kagawad-list {
+            list-style: none;
+            margin-left: 20px;
+            color: #333;
+            padding-left: 20px;
+        }
+
+        .kagawad-item {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #444;
+            display: block;
+        }
+
+        .settings-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        .settings-buttons button {
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .settings-buttons button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/enable_links">
+        <button type="button"
+            style="padding: 10px; margin-bottom: 15px; background-color: #4CAF50; border: none; color: white; cursor: pointer; border-radius: 4px; font-size: 16px; width: 200px;">Post</button>
+    </a>
+    <a href="/disable_links">
+        <button type="button"
+            style="padding: 10px; margin-bottom: 15px; background-color: #4CAF50; border: none; color: white; cursor: pointer; border-radius: 4px; font-size: 16px; width: 200px;">Hold</button>
+    </a>
+
+    <h1>Live SK Councilor's Results</h1>
+
+    <div class="announcement-card">
+        <div class="announcement-header">
+            <h1 class="announcement-title">Incoming SK Chairman</h1>
+        </div>
+        <div class="announcement-content">
+            <p>
+                Party List: {{ sk_chairman_winner[1] }} <br>
+                Name: {{ sk_chairman_winner[2] }} {{ sk_chairman_winner[3] }} {{ sk_chairman_winner[4] }}<br>
+            </p>
+        </div>
+    </div>
+
+    <div class="announcement-card">
+        <div class="announcement-header">
+            <h1 class="announcement-title">Incoming SK Kagawad</h1>
+        </div>
+        <div class="announcement-content">
+            <ul class="kagawad-list">
+                {% for kagawad in sk_kagawad_winners %}
+                <li class="kagawad-item">
+                    Party List: {{ kagawad[1] }} <br>
+                    Name: {{ kagawad[2] }} {{ kagawad[3] }} {{ kagawad[4] }}<br>
+                </li><br>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

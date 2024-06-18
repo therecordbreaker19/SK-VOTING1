@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Info</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ad9c9c;
+        }
+
+        table {
+            width: 100%;   
+            background-color: #333;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            color: black;
+            background-color: white;
+        }
+
+        th {
+            background-color: #333;
+            color: yellow;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            padding-top: 20px;
+            color: black;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            padding: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .edit-button {
+            background-color: #008CBA;
+            color: white;
+            padding: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .delete-button:hover {
+            background-color: red;
+        }
+
+        .edit-button:hover {
+            background-color: blue;
+        }
+
+        .save-button {
+            background-color: goldenrod;
+            border-radius: 4px;
+        }
+
+        .save-button:hover {
+            background-color: gold;
+        }
+    </style>
+    <script>
+        function deleteRow(id) {
+            if (confirm("Are you sure you want to delete?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            location.reload();
+                        } else {
+                            console.error("Error deleting:", xhr.statusText);
+                        }
+                    }
+                };
+                xhr.open("POST", "/delete_user", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send("delete_id=" + id);
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Votes History</h1>
+    <table>
+        <tr>
+            <th>Chairman</th>
+            <th>1.Kagawad</th>
+            <th>2.Kagawad</th>
+            <th>3.Kagawad</th>
+            <th>4.Kagawad</th>
+            <th>5.Kagawad</th>
+            <th>6.Kagawad</th>
+            <th>7.Kagawad</th>
+        </tr>
+        {% for user in users %}
+        <tr id='row_{{ user[0] }}'>
+            <td>{{ user[3] }}</td>
+            <td>{{ user[4] }}</td>
+            <td>{{ user[5] }}</td>
+            <td>{{ user[6] }}</td>
+            <td>{{ user[7] }}</td>
+            <td>{{ user[8] }}</td>
+            <td>{{ user[9] }}</td>
+            <td>{{ user[10] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('bo.jpg');
+            background-repeat: no-repeat;
+            background-position: span;
+            background-size: span;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #555;
+            width: 180px;
+            height: auto;
+        }
+
+        .menu li {
+            display: block;
+        }
+
+        .menu li a {
+            display: block;
+            color: yellow;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .menu li a.active {
+            background-color: #ad9c9c;
+            color: white;
+        }
+
+        .menu li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        #dynamicContent {
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadDefaultContent('/admin_home');
+
+            $("a[href='/admin_home']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/admin_home");
+            });
+
+            $("a[href='/admin_create_announcement']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/admin_create_announcement");
+            });
+
+            $("a[href='/admin_view_announcements']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/admin_view_announcements");
+            });
+
+            $("a[href='/add_partylist']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/add_partylist");
+            });
+
+            $("a[href='/add_sk_member']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/add_sk_member");
+            });
+
+            $("a[href='/display_winners_alternative']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/display_winners_alternative");
+            });
+
+            $("a[href='/view_users']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/view_users");
+            });
+
+            $("a[href='/display_skchairman']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/display_skchairman");
+            });
+
+            $("a[href='/display_skkagawad']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/display_skkagawad");
+            });
+
+            $("a[href='/user/register']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/user/register");
+            });
+
+            $("a[href='/display_skkagawad']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/display_skkagawad");
+            });
+
+            $("a[href='/user_info_list']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/user_info_list");
+            });
+
+            $("a[href='/users_list']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/users_list");
+            });
+
+            $("a[href='/vote_settings']").click(function (event) {
+                event.preventDefault();
+                $("a").removeClass("active");
+                $(this).addClass("active");
+                loadContent("/vote_settings");
+            });
+
+            function loadContent(url) {
+                $.get(url, function (data) {
+                    $('#dynamicContent').html(data);
+                });
+            }
+
+            function loadDefaultContent(url) {
+                $.get(url, function (data) {
+                    $('#dynamicContent').html(data);
+                    $("a[href='/admin_home']").addClass("active");
+                });
+            }
+
+            function loadContent(url) {
+                $.get(url, function (data) {
+                    $('#dynamicContent').html(data);
+                });
+            }
+
+            function loadDefaultContent(url) {
+                $.get(url, function (data) {
+                    $('#dynamicContent').html(data);
+                    $("a[href='/admin_home']").addClass("active");
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <ul class="menu">
+            <li><a href="/admin_home">Home</a></li>
+            <li><a href="/admin_create_announcement">Create Announcement</a></li>
+            <li><a href="/admin_view_announcements">Announcements</a></li>
+            <li><a href="/add_sk_member">Add Candidate</a></li>
+            <li><a href="/add_partylist">Add Partylist</a></li>
+            <li><a href="/display_winners_alternative">Councilor Results</a></li>
+            <li><a href="/view_users">Votes History</a></li>
+            <li><a href="/display_skchairman">Chairman List</a></li>
+            <li><a href="/display_skkagawad">Kagawad List</a></li>
+            <li><a href="/user/register">Add Voters</a></li>
+            <li><a href="/user_info_list">Pending Registrations</a></li>
+            <li><a href="/users_list">Users</a></li>
+            <li><a href="/vote_settings">Settings</a></li>
+            <li><a href="/admin/logout">Logout</a></li>
+        </ul>
+        <div class="content">
+            <div id="dynamicContent">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
